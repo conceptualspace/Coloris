@@ -45,7 +45,8 @@
       input: 'Color value field',
       format: 'Color format',
       swatch: 'Color swatch',
-      instruction: 'Saturation and brightness selector. Use up, down, left and right arrow keys to select.' } };
+      instruction: 'Saturation and brightness selector. Use up, down, left and right arrow keys to select.',
+      eyeDropper: 'Pick a color from the screen' } };
 
 
 
@@ -1000,7 +1001,8 @@
     settings.a11y.clear + "\">" + settings.clearLabel + "</button>") +
     '<div id="clr-color-preview" class="clr-preview">' + ("<button type=\"button\" id=\"clr-close\" class=\"clr-close\" aria-label=\"" +
     settings.a11y.close + "\">" + settings.closeLabel + "</button>") +
-    '</div>' + ("<span id=\"clr-open-label\" hidden>" +
+    '</div>' + ("<button type=\"button\" id=\"clr-eye-dropper\" class=\"clr-eye-dropper\" aria-label=\"" +
+    settings.a11y.eyeDropper + "\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"m2 22 1-1h3l9-9\"></path><path d=\"M3 21v-3l9-9\"></path><path d=\"m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z\"></path></svg></button>") + ("<span id=\"clr-open-label\" hidden>" +
     settings.a11y.open + "</span>") + ("<span id=\"clr-swatch-label\" hidden>" +
     settings.a11y.swatch + "</span>");
 
@@ -1014,6 +1016,12 @@
     closeButton = getEl('clr-close');
     colorPreview = getEl('clr-color-preview');
     colorValue = getEl('clr-color-value');
+
+    // Hide the eye dropper button if the EyeDropper API is not supported
+    var eyeDropperButton = getEl('clr-eye-dropper');
+    if (!window.EyeDropper) {
+      eyeDropperButton.style.display = 'none';
+    }
     hueSlider = getEl('clr-hue-slider');
     hueMarker = getEl('clr-hue-marker');
     alphaSlider = getEl('clr-alpha-slider');
@@ -1065,6 +1073,16 @@
     addListener(closeButton, 'click', function (event) {
       pickColor();
       closePicker();
+    });
+
+    addListener(getEl('clr-eye-dropper'), 'click', function (event) {
+      if (window.EyeDropper) {
+        var dropper = new EyeDropper();
+        dropper.open().then(function (result) {
+          setColorFromStr(result.sRGBHex);
+          pickColor();
+        }).catch(function () {});
+      }
     });
 
     addListener(getEl('clr-format'), 'click', '.clr-format input', function (event) {

@@ -315,6 +315,31 @@ input.clr-color:focus {
   overflow: hidden;
 }
 
+.clr-eye-dropper {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  margin: 15px 20px 20px 6px;
+  padding: 0;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #666;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  order: 0;
+}
+
+.clr-eye-dropper:hover {
+  background-color: #eee;
+}
+
+.clr-eye-dropper svg {
+  pointer-events: none;
+}
+
 .clr-marker,
 .clr-hue div,
 .clr-alpha div,
@@ -406,7 +431,8 @@ input.clr-color:focus {
 .clr-picker[data-minimal="true"] .clr-hue,
 .clr-picker[data-minimal="true"] .clr-alpha,
 .clr-picker[data-minimal="true"] .clr-color,
-.clr-picker[data-minimal="true"] .clr-preview {
+.clr-picker[data-minimal="true"] .clr-preview,
+.clr-picker[data-minimal="true"] .clr-eye-dropper {
   display: none;
 }
 
@@ -436,6 +462,16 @@ input.clr-color:focus {
 
 .clr-dark .clr-preview:after {
   box-shadow: inset 0 0 0 1px rgba(255,255,255,.5);
+}
+
+.clr-dark .clr-eye-dropper {
+  border-color: #777;
+  background-color: #555;
+  color: #ddd;
+}
+
+.clr-dark .clr-eye-dropper:hover {
+  background-color: #666;
 }
 
 .clr-dark .clr-alpha,
@@ -537,6 +573,10 @@ input.clr-color:focus {
 
 .clr-polaroid .clr-preview {
   margin: 10px 0 15px 10px;
+}
+
+.clr-polaroid .clr-eye-dropper {
+  margin: 10px 10px 15px 6px;
 }
 
 /** Large theme **/
