@@ -34,6 +34,7 @@
     clearLabel: 'Clear',
     closeButton: false,
     closeLabel: 'Close',
+    showInput: true,
     onChange: () => undefined,
     a11y: {
       open: 'Open color picker',
@@ -204,6 +205,10 @@
         case 'closeLabel':
           settings.closeLabel = options.closeLabel;
           closeButton.innerHTML = settings.closeLabel;
+          break;
+        case 'showInput':
+          settings.showInput = !!options.showInput;
+          picker.setAttribute('data-input', settings.showInput);
           break;
         case 'a11y':
           const labels = options.a11y;

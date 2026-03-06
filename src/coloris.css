@@ -439,11 +439,11 @@ input.clr-color:focus {
 /** Dark theme **/
 
 .clr-dark {
-  background-color: #444;
+  background-color: #222;
 }
 
 .clr-dark .clr-segmented {
-  border-color: #777;
+  border-color: #555;
 }
 
 .clr-dark .clr-swatches button:after {
@@ -452,8 +452,8 @@ input.clr-color:focus {
 
 .clr-dark input.clr-color {
   color: #fff;
-  border-color: #777;
-  background-color: #555;
+  border-color: #555;
+  background-color: #333;
 }
 
 .clr-dark input.clr-color:focus {
@@ -465,20 +465,28 @@ input.clr-color:focus {
 }
 
 .clr-dark .clr-eye-dropper {
-  border-color: #777;
-  background-color: #555;
+  border-color: #555;
+  background-color: #333;
   color: #ddd;
 }
 
 .clr-dark .clr-eye-dropper:hover {
-  background-color: #666;
+  background-color: #444;
 }
 
 .clr-dark .clr-alpha,
 .clr-dark .clr-alpha div,
 .clr-dark .clr-swatches button,
 .clr-dark .clr-preview:before {
-  background-image: repeating-linear-gradient(45deg, #666 25%, transparent 25%, transparent 75%, #888 75%, #888), repeating-linear-gradient(45deg, #888 25%, #444 25%, #444 75%, #888 75%, #888);
+  background-image: repeating-linear-gradient(45deg, #444 25%, transparent 25%, transparent 75%, #666 75%, #666), repeating-linear-gradient(45deg, #666 25%, #222 25%, #222 75%, #666 75%, #666);
+}
+
+.clr-picker[data-input="false"] .clr-color {
+  display: none;
+}
+
+.clr-picker[data-input="false"] .clr-preview {
+  margin-left: auto;
 }
 
 /** Polaroid theme **/
