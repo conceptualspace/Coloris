@@ -251,7 +251,8 @@ input.clr-color:focus {
 }
 
 .clr-close,
-.clr-clear {
+.clr-clear,
+.clr-cancel {
   display: none;
   order: 2;
   height: 24px;
@@ -572,6 +573,10 @@ input.clr-color:focus {
 }
 
 .clr-polaroid .clr-clear {
+  margin: 0 10px 15px 10px;
+}
+
+.clr-polaroid .clr-cancel {
   margin: 0 10px 15px 10px;
 }
 

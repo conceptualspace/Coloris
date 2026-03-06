@@ -8,8 +8,8 @@
   const ctx = document.createElement('canvas').getContext('2d');
   const currentColor = { r: 0, g: 0, b: 0, h: 0, s: 0, v: 0, a: 1 };
   let container, picker, colorArea, colorMarker, colorPreview, colorValue, clearButton, closeButton,
-      hueSlider, hueMarker, alphaSlider, alphaMarker, currentEl, currentFormat, oldColor, keyboardNav,
-      colorAreaDims = {};
+      cancelButton, hueSlider, hueMarker, alphaSlider, alphaMarker, currentEl, currentFormat, oldColor,
+      keyboardNav, colorAreaDims = {};
 
   // Default settings
   const settings = {
@@ -34,11 +34,14 @@
     clearLabel: 'Clear',
     closeButton: false,
     closeLabel: 'Close',
+    cancelButton: false,
+    cancelLabel: 'Cancel',
     showInput: true,
     onChange: () => undefined,
     a11y: {
       open: 'Open color picker',
       close: 'Close color picker',
+      cancel: 'Cancel and revert color',
       clear: 'Clear the selected color',
       marker: 'Saturation: {s}. Brightness: {v}.',
       hueSlider: 'Hue slider',
@@ -205,6 +208,14 @@
         case 'closeLabel':
           settings.closeLabel = options.closeLabel;
           closeButton.innerHTML = settings.closeLabel;
+          break;
+        case 'cancelButton':
+          settings.cancelButton = !!options.cancelButton;
+          cancelButton.style.display = settings.cancelButton ? 'block' : 'none';
+          break;
+        case 'cancelLabel':
+          settings.cancelLabel = options.cancelLabel;
+          cancelButton.innerHTML = settings.cancelLabel;
           break;
         case 'showInput':
           settings.showInput = !!options.showInput;
@@ -1004,6 +1015,7 @@
     '</div>'+
     '<div id="clr-swatches" class="clr-swatches"></div>'+
     `<button type="button" id="clr-clear" class="clr-clear" aria-label="${settings.a11y.clear}">${settings.clearLabel}</button>`+
+    `<button type="button" id="clr-cancel" class="clr-cancel" aria-label="${settings.a11y.cancel}">${settings.cancelLabel}</button>`+
     '<div id="clr-color-preview" class="clr-preview">'+
       `<button type="button" id="clr-close" class="clr-close" aria-label="${settings.a11y.close}">${settings.closeLabel}</button>`+
     '</div>'+
@@ -1018,6 +1030,7 @@
     colorArea = getEl('clr-color-area');
     colorMarker = getEl('clr-color-marker');
     clearButton = getEl('clr-clear');
+    cancelButton = getEl('clr-cancel');
     closeButton = getEl('clr-close');
     colorPreview = getEl('clr-color-preview');
     colorValue = getEl('clr-color-value');
@@ -1073,6 +1086,10 @@
     addListener(clearButton, 'click', event => {
       pickColor('');
       closePicker();
+    });
+
+    addListener(cancelButton, 'click', event => {
+      closePicker(true);
     });
 
     addListener(closeButton, 'click', event => {
