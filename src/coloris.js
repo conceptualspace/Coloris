@@ -1039,6 +1039,7 @@
     const eyeDropperButton = getEl('clr-eye-dropper');
     if (!window.EyeDropper) {
       eyeDropperButton.style.display = 'none';
+      picker.classList.add('clr-no-eyedropper');
     }
     hueSlider = getEl('clr-hue-slider');
     hueMarker = getEl('clr-hue-marker');

@@ -490,6 +490,10 @@ input.clr-color:focus {
   margin-left: auto;
 }
 
+.clr-picker.clr-no-eyedropper .clr-preview {
+  margin-right: 10px;
+}
+
 /** Polaroid theme **/
 
 .clr-picker.clr-polaroid {
