@@ -101,7 +101,7 @@
           }
 
           // Set the theme and color scheme
-          picker.className = `clr-picker clr-${settings.theme} clr-${settings.themeMode}`;
+          picker.className = `clr-picker clr-${settings.theme} clr-${settings.themeMode}${!window.EyeDropper ? ' clr-no-eyedropper' : ''}`;
 
           // Update the color picker's position if inline mode is in use
           if (settings.inline) {
