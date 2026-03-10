@@ -409,7 +409,9 @@
     if (!settings.inline) {
       const coords = currentEl.getBoundingClientRect();
       let left = coords.x;
-      let top = scrollY + coords.y + coords.height + settings.margin;
+      // Default to opening above the element
+      let top = scrollY + coords.y - pickerHeight - settings.margin;
+      reposition.top = true;
 
       // If the color picker is inside a custom container
       // set the position relative to it
@@ -422,11 +424,10 @@
           reposition.left = true;
         }
 
-        if (top + pickerHeight >  parent.clientHeight - parentMarginTop) {
-          if (pickerHeight + settings.margin <= coords.top - (offset.y - scrollY)) {
-            top -= coords.height + pickerHeight + settings.margin * 2;
-            reposition.top = true;
-          }
+        // If not enough space above, fall back to below
+        if (top < parent.scrollTop) {
+          top += coords.height + pickerHeight + settings.margin * 2;
+          reposition.top = false;
         }
 
         top += parent.scrollTop;
@@ -438,11 +439,10 @@
           reposition.left = true;
         }
 
-        if (top + pickerHeight - scrollY > document.documentElement.clientHeight) {
-          if (pickerHeight + settings.margin <= coords.top) {
-            top = scrollY + coords.y - pickerHeight - settings.margin;
-            reposition.top = true;
-          }
+        // If not enough space above, fall back to below
+        if (coords.y - pickerHeight - settings.margin < 0) {
+          top = scrollY + coords.y + coords.height + settings.margin;
+          reposition.top = false;
         }
       }
 
